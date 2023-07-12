@@ -1,0 +1,20 @@
+{
+  "name": "akeno",
+  "version": "1.0.0",
+  "description": "A multipurpose, Akeno-themed Discord bot including, moderation, fun commands and more!",
+  "main": "index.js",
+  "scripts": {
+    "akeno": "node ./src/index.js",
+    "dev": "nodemon ."
+  },
+  "author": "Lua Injector",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^14.11.0",
+    "dotenv": "^16.3.1",
+    "mongodb": "^5.7.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
