@@ -1,11 +1,12 @@
 const { MongoClient } = require("mongodb")
 const { Logger } = require("../../utils/logger")
+const env = require("../../secret/env")
 
 const logger = new Logger()
 
 require("dotenv").config()
 
-const dbClient = new MongoClient(process.env.MONGO_URI)
+const dbClient = new MongoClient(env.MONGO_URI)
     
 async function init() {
     try {

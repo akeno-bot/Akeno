@@ -3,7 +3,7 @@
 const { Logger } = require("../logger") 
 const { REST, Routes } = require("discord.js")
 
-const cfg = require("../../config")
+const env = require("../secret/env")
 
 require("dotenv").config()
 
@@ -11,16 +11,16 @@ const logger = new Logger()
 
 async function deleteSlash(option) {
     try {
-        const rest = new REST().setToken(process.env.BOT_TOKEN)
+        const rest = new REST().setToken(env.BOT_TOKEN)
 
         if (option == "global") {
             await rest.put(
-                Routes.applicationCommands(process.env.CLIENT_ID),
+                Routes.applicationCommands(env.CLIENT_ID),
                 { body: [] }
             )
         } else if (option == "guild") {
             await rest.put(
-                Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID),
+                Routes.applicationGuildCommands(env.CLIENT_ID, env.GUILD_ID),
                 { body: [] }
             )
         } else {

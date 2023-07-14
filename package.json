@@ -2,7 +2,7 @@
   "name": "akeno",
   "version": "1.0.0",
   "description": "A multipurpose, Akeno-themed Discord bot including, moderation, fun commands and more!",
-  "main": "index.js",
+  "main": "./src/index.js",
   "scripts": {
     "akeno": "node ./src/index.js",
     "dev": "nodemon ."

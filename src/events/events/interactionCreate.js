@@ -1,6 +1,8 @@
 const { Events } = require("discord.js")
 const { createEmbed } = require("../../modules/createEmbed")
 
+const { devs } = require("../../../secret/config")
+
 module.exports = {
   name: Events.InteractionCreate,
 
@@ -11,26 +13,15 @@ module.exports = {
 
     if (!command) return
 
-    /*
-    if (command.nsfw) {
-			if (!isChannelNSFW(client, interaction)) {
-				return await interaction.reply({ embeds: [ errorEmbed.setDescription("Channel must be NSFW to execute this command!") ], ephemeral: true })				
-			}
-		}
+    const errorEmbed = createEmbed("error", null, "There was an error while executing this command!", interaction)
 
-		if (command.dev) {
-			if (!cfg.bot.devs.includes(interaction.user.id)) {
-				return await interaction.reply({ embeds: [ errorEmbed.setDescription("You must be a developer to execute this command!") ], ephemeral: true })
-			}
-		}
-    */
+    if (command.nsfw && !interaction.channel.nsfw) return await interaction.reply({ embeds: [ errorEmbed.setDescription("Channel must be NSFW to execute this command!") ], ephemeral: true })				
+		if (command.dev && !devs.includes(interaction.user.id)) return await interaction.reply({ embeds: [ errorEmbed.setDescription("You must be a developer to execute this command!") ], ephemeral: true })
 
     try {
       await command.execute(client, interaction)
     } catch(error) {
       console.log(error)
-    
-      const errorEmbed = createEmbed("error", null, "There was an error while executing this command!", interaction)
       
       if (interaction.replied || interaction.deferred) {
         await interaction.followUp({ embeds: [ errorEmbed ], ephemeral: true });

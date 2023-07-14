@@ -4,7 +4,7 @@ module.exports = {
     name: Events.ClientReady,
     once: true,
 
-    execute(client) {
+    async execute(client) {
         client.logger.log("Akeno is now online!")
     }
 }

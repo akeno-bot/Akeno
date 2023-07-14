@@ -8,13 +8,35 @@ module.exports = {
 	
   userPermissions: [], // TODO: handle this
 	botPermissions: [],  // TODO: handle this
-	dev: false,          // TODO: handle this
-	nsfw: false,         // TODO: handle this
+	dev: false,
+	nsfw: false,
 
 	async execute(client, interaction) {
-    const ping = createEmbed("main", "⏳ Ping", "Pinging...", interaction)
+		if (!interaction.deferred) await interaction.deferReply()
 
-		const sent = await interaction.reply({ embeds: [ ping ], fetchReply: true })
-		await interaction.editReply({ embeds: [ ping.setDescription(`Roundtrip latency: **${sent.createdTimestamp - interaction.createdTimestamp}ms**\nWebsocket heartbeat: **${client.ws.ping}ms**`) ] })
+		const ping = createEmbed("main", "⏳ Ping", "Pinging...", interaction)
+
+		const before = Date.now()
+		await interaction.editReply({ embeds: [ ping ]})
+		const latency = Date.now() - before
+		const wsLatency = client.ws.ping.toFixed(0)
+
+		await interaction.editReply({
+			embeds: [
+				ping.setDescription(null)
+				.addFields(
+					{
+						name: "🌐 WebSocket",
+						value: `**\`${wsLatency}\`** ms`,
+						inline: true
+					},
+					{
+						name: "📶 API",
+						value: `**\`${latency}\`** ms`,
+						inline: true
+					}
+				)
+			]
+		})
 	},
 }

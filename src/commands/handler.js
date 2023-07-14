@@ -3,6 +3,8 @@ const path = require("path")
 
 const { REST, Routes, Collection, Events } = require("discord.js")
 
+const env = require("../../secret/env")
+
 module.exports = (client) => {
   const commands = []
   client.commands = new Collection()
@@ -35,12 +37,12 @@ module.exports = (client) => {
 
   client.once(Events.ClientReady, async (client) => {
     try {
-      const rest = new REST().setToken(process.env.BOT_TOKEN)
+      const rest = new REST().setToken(env.BOT_TOKEN)
 
       client.logger.log(`Started refreshing ${commands.length} application (/) commands.`)
 
       const data = await rest.put(
-          Routes.applicationCommands(process.env.CLIENT_ID),
+          Routes.applicationCommands(env.CLIENT_ID),
           { body: commands },
         )
 
