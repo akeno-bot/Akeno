@@ -1,4 +1,4 @@
-const { Events, ApplicationCommandOptionType } = require("discord.js")
+const { Events } = require("discord.js")
 const { createEmbed } = require("../../modules/createEmbed")
 
 const { devs } = require("../../../secret/config")
