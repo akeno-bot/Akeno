@@ -12,7 +12,7 @@ module.exports = {
     const errorEmbed = createEmbed("error", null, "There was an error while executing this command!", interaction)
 
     if (subcommand.nsfw && !interaction.channel.nsfw) return await interaction.reply({ embeds: [ errorEmbed.setDescription("The channel must be NSFW to execute this command!") ], ephemeral: true })				
-		if (subcommand.dev && !devs.includes(interaction.user.id)) return await interaction.reply({ embeds: [ errorEmbed.setDescription("You must be a developer to execute this command!") ], ephemeral: true })
+    if (subcommand.dev && !devs.includes(interaction.user.id)) return await interaction.reply({ embeds: [ errorEmbed.setDescription("You must be a developer to execute this command!") ], ephemeral: true })
 
     try {
       await subcommand.execute(client, interaction)
