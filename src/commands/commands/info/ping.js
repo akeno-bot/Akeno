@@ -1,4 +1,5 @@
 const { createEmbed } = require("../../../modules/createEmbed")
+const { ApplicationCommandOptionType } = require("discord.js")
 
 module.exports = {
 	name: "ping",

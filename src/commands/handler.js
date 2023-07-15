@@ -1,13 +1,14 @@
 const fs = require("fs")
 const path = require("path")
 
-const { REST, Routes, Collection, Events } = require("discord.js")
+const { REST, Routes, Collection, Events, ApplicationCommandOptionType } = require("discord.js")
 
 const env = require("../../secret/env")
 
 module.exports = (client) => {
   const commands = []
   client.commands = new Collection()
+  client.subcommands = new Collection()
   
   const foldersPath = path.join(__dirname, "commands")
   const commandFolders = fs.readdirSync(foldersPath)
@@ -27,8 +28,17 @@ module.exports = (client) => {
           description: command.description,
           dm_permission: command.dm
         })
-        
+
         client.commands.set(command.name, command)
+
+        const subs = command.options.filter((k) => k.type == ApplicationCommandOptionType.Subcommand)
+        if (subs.length) {
+          for (const sub of subs) {
+            const subcommand = require(path.join(commandsPath, "sub", `${sub.name}.${command.name}.js`))
+
+            client.subcommands.set(`${command.name}.${sub.name}`, subcommand)
+          }
+        }        
       } else {
         client.logger.warning(`The command at ${filePath} is missing a required property.`);
       }
