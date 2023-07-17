@@ -2,6 +2,7 @@ const { createEmbed } = require("../../../modules/createEmbed")
 const { ApplicationCommandOptionType } = require("discord.js")
 
 module.exports = {
+  cooldown: 3,
 	name: "image",
 	description: "🖼️ Sends an image",
   options: [
@@ -10,11 +11,5 @@ module.exports = {
       description: "☕ Sends coffee images",
       type: ApplicationCommandOptionType.Subcommand
     }
-  ],
-	dm: true,
-	
-  userPermissions: [], // TODO: handle this
-	botPermissions: [],  // TODO: handle this
-	dev: false,
-	nsfw: false
+  ]
 }

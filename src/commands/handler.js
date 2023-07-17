@@ -1,14 +1,13 @@
 const fs = require("fs")
 const path = require("path")
 
-const { REST, Routes, Collection, Events, ApplicationCommandOptionType } = require("discord.js")
+const { Routes, Collection, Events, ApplicationCommandOptionType } = require("discord.js")
 
 const env = require("../../secret/env")
 
-module.exports = (client) => {
+module.exports = (client, rest) => {
   const commands = []
   client.commands = new Collection()
-  client.subcommands = new Collection()
   
   const foldersPath = path.join(__dirname, "commands")
   const commandFolders = fs.readdirSync(foldersPath)
@@ -26,17 +25,18 @@ module.exports = (client) => {
           options: command.options || [],
           name: command.name,
           description: command.description,
-          dm_permission: command.dm
+          dm_permission: false
         })
 
         client.commands.set(command.name, command)
+        client.cooldowns.set(command.name, new Collection())
 
         const subs = command.options.filter((k) => k.type == ApplicationCommandOptionType.Subcommand)
         if (subs.length) {
           for (const sub of subs) {
             const subcommand = require(path.join(commandsPath, "sub", `${sub.name}.${command.name}.js`))
 
-            client.subcommands.set(`${command.name}.${sub.name}`, subcommand)
+            client.commands.set(`${command.name}.${sub.name}`, subcommand)
           }
         }        
       } else {
@@ -47,8 +47,6 @@ module.exports = (client) => {
 
   client.once(Events.ClientReady, async (client) => {
     try {
-      const rest = new REST().setToken(env.BOT_TOKEN)
-
       client.logger.log(`Started refreshing ${commands.length} application (/) commands.`)
 
       const data = await rest.put(

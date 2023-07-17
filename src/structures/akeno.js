@@ -1,4 +1,4 @@
-const { Client } = require("discord.js")
+const { Client, Collection } = require("discord.js")
 const { Logger } = require("../modules/logger")
 const env = require("../../secret/env")
 
@@ -17,8 +17,11 @@ class Akeno extends Client {
     // Logger
     this.logger = new Logger()
 
-    // Command handler
-    require("../commands/handler")(this)
+    // Cooldowns
+    this.cooldowns = new Collection()
+
+    // Command handler, context menus, etc...
+    require("../rest")(this)
 
     // Event handler
     require("../events/handler")(this)

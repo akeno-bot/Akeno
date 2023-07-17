@@ -4,8 +4,8 @@ const { devs } = require("../../../secret/config")
 module.exports = {
   name: "subcommandCreate",
 
-  async execute(client, commandName, subcommandName, interaction) {
-    const subcommand = client.subcommands.get(`${commandName}.${subcommandName}`)
+  async execute(client, interaction) {
+    const subcommand = client.commands.get(interaction.commandName)
 
     if (!subcommand) return
 

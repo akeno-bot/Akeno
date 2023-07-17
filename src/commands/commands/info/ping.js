@@ -1,10 +1,11 @@
 const { createEmbed } = require("../../../modules/createEmbed")
 
 module.exports = {
+	// REMINDER: delete this
+	cooldown: 3,
 	name: "ping",
 	description: "⏳ Sends a ping request",
   options: [],
-	dm: true,
 	
   userPermissions: [], // TODO: handle this
 	botPermissions: [],  // TODO: handle this

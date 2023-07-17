@@ -9,6 +9,6 @@ module.exports = (client) => {
     const filePath = path.join(eventsPath, file)
     const event = require(filePath)
     
-    client[event.once ? "once" : "on"](event.name, async (...args) => event.execute(client, ...args))
+    client[event.once ? "once" : "on"](event.name, async (...args) => await event.execute(client, ...args))
   }
 }
