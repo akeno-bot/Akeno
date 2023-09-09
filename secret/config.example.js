@@ -1,9 +1,9 @@
-const { GatewayIntentBits } = require("discord.js")
+const { GatewayIntentBits } = require("discord.js");
 
 module.exports = {
   colors: {
     main: "#7A4DCE",
-    error: "#FF3333"
+    error: "#FF3333",
   },
 
   clientOptions: {
@@ -12,16 +12,14 @@ module.exports = {
       GatewayIntentBits.GuildMessages,
       GatewayIntentBits.GuildEmojisAndStickers,
       GatewayIntentBits.GuildVoiceStates,
-      GatewayIntentBits.MessageContent
-    ]
+      GatewayIntentBits.MessageContent,
+    ],
   },
 
   sharder: {
     shardsCount: "auto",
-    shardingMode: "worker"
+    shardingMode: "worker",
   },
 
-  devs: [
-    "..."
-  ]
-}
+  devs: ["..."],
+};
