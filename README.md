@@ -32,7 +32,7 @@ npm install
 
 3. **Configure Environment Variables**: 
   - `secret` directory:
-    - Rename the file `config.example.js` to `config.js`.
+    - Rename the `config.example.js` file to `config.js`.
   - Akeno's root directory:
     - Rename the `.env.example` file to `.env.`.
     - Open the newly renamed .env file and add the required information.
