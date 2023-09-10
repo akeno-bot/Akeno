@@ -37,7 +37,7 @@ npm install
     - Rename the `.env.example` file to `.env.`.
     - Open the newly renamed .env file and add the required information.
 
-4. Run the Bot: once configured, you can run the bot with the following command:
+4. **Run the Bot**: once configured, you can run the bot with the following command:
 
 ```
 npm run akeno
